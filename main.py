@@ -17,6 +17,7 @@ def start(message):
     markup.row(btn1, btn2, btn3)
     markup.row(btn4)
     bot.send_message(message.chat.id, f"Привет @{message.from_user.username}! Это я, СаняGPT. Чем я могу помочь?????", reply_markup=markup)
+    print(message.chat.id, message.from_user.username, "start")
 
 #медиа
 @bot.message_handler(content_types=['photo'])
@@ -26,13 +27,14 @@ def getPhoto(message):
     btn2 = types.InlineKeyboardButton('Удалить нахуй', callback_data='delete')
     markup.row(btn1, btn2)
     bot.reply_to(message, 'че за хуйню ты мне отправил?', reply_markup=markup)
-
+    print(message.chat.id, message.from_user.username, "photo")
 
 #обработчик всех текстовых сообщений
 @bot.message_handler(func=lambda message: True)
 def on_click(message):
     if message.text == 'Helpaa':
         bot.send_message(message.chat.id, 'Nema helpi')
+        print(message.chat.id, "helpaa")
     elif message.text == 'Жопа':
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
         btn5 = types.KeyboardButton('Ты ахуел?')
@@ -44,6 +46,7 @@ def on_click(message):
             file = open(f'./photo/{memchik}.png', 'rb')
             bot.send_photo(message.chat.id, file, timeout=60)
             file.close()
+            print(message.chat.id, message.from_user.username, "meme")
     elif message.text.lower() == 'привет':
          bot.send_message(message.chat.id, 'Уже здоровались')
     elif message.text.lower() == 'пока':
@@ -67,6 +70,7 @@ def callback_message(callback):
     if callback.data == 'delete':
         bot.delete_message(callback.message.chat.id, callback.message.message_id - 1)
         bot.delete_message(callback.message.chat.id, callback.message.message_id)
+
 
 #работа
 bot.polling(none_stop=True)
