@@ -1,5 +1,6 @@
 import telebot
 import random
+import os
 from telebot import types
 from api import pogoda
 
@@ -18,7 +19,7 @@ def start(message):
     btn4 = types.KeyboardButton('Погода во Всеше')
     markup.row(btn1, btn2, btn3)
     markup.row(btn4)
-    bot.send_message(message.chat.id, f"Привет @{message.from_user.username}! Это я, Саня Комков. Чем я могу помочь?????", reply_markup=markup)
+    bot.send_message(message.chat.id, f"Привет @{message.from_user.username}! Это я, СаняGPT. Чем я могу помочь?????", reply_markup=markup)
 
 #медиа
 @bot.message_handler(content_types=['photo'])
@@ -36,9 +37,13 @@ def on_click(message):
     if message.text == 'Helpaa':
         bot.send_message(message.chat.id, 'Nema helpi')
     elif message.text == 'Жопа':
-        bot.send_message(message.chat.id, 'Сам(а) ты жопа')
+        markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+        btn5 = types.KeyboardButton('Ты ахуел?')
+        markup.row(btn5)
+        bot.send_message(message.chat.id, 'Сам(а) ты жопа', reply_markup=markup)
     elif message.text == 'Мемчик':
-            memchik = random.randint(1, 3)
+            photo_count = len(os.listdir('./photo'))
+            memchik = random.randint(1, photo_count)
             file = open(f'./photo/{memchik}.png', 'rb')
             bot.send_photo(message.chat.id, file, timeout=60)
             file.close()
@@ -49,6 +54,15 @@ def on_click(message):
     elif message.text == 'Погода во Всеше':
          a = pogoda()
          bot.send_message(message.chat.id, a)
+    elif message.text == 'Ты ахуел?':
+        markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+        btn1 = types.KeyboardButton('Жопа')
+        btn2 = types.KeyboardButton('Helpaa')
+        btn3 = types.KeyboardButton('Мемчик')
+        btn4 = types.KeyboardButton('Погода во Всеше')
+        markup.row(btn1, btn2, btn3)
+        markup.row(btn4)
+        bot.send_message(message.chat.id, 'Ладно, я ахуел', reply_markup=markup)
 
 #callback
 @bot.callback_query_handler(func=lambda callback: True)
