@@ -6,9 +6,6 @@ from api import pogoda
 
 bot = telebot.TeleBot('8379602830:AAFYS3OLfvC5SPw2qEQesZWyE9fAwIZzGvU')
 
-
-
-
 #обработчик команды /start
 @bot.message_handler(commands=['start'])
 def start(message):
