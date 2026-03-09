@@ -34,6 +34,10 @@ def on_click(message):
             file = open('./photo/1.png', 'rb')
             bot.send_photo(message.chat.id, file, timeout=60)
             file.close()
+    elif message.text.lower() == 'привет':
+         bot.send_message(message.chat.id, 'Уже здоровались')
+    elif message.text.lower() == 'пока':
+         bot.send_message(message.chat.id, 'Вот и иди нахуй')
 
 #callback
 @bot.callback_query_handler(func=lambda callback: True)
