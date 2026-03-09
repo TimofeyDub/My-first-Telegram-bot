@@ -13,7 +13,7 @@ def pogoda():
         temperature = data['current_weather']['temperature']
         
         #сообщение
-        return f"Погода во Всеше: {temperature}°C"
+        return f"Погода во Всеше: Всегда ясно, {temperature}°C"
         
     except Exception as e:
         print(f"Ошибка в api.py: {e}")
