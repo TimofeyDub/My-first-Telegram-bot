@@ -17,4 +17,4 @@ def pogoda():
         
     except Exception as e:
         print(f"Ошибка в api.py: {e}")
-        return "😔 Не удалось получить погоду"
+        return "😔 Не удалось получить погоду("
