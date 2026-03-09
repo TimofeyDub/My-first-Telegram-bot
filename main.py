@@ -13,7 +13,7 @@ def start(message):
     markup.row(btn1, btn2, btn3)
     bot.send_message(message.chat.id, f"Привет @{message.from_user.username}! Это я, Саня Комков. Чем я могу помочь?????", reply_markup=markup)
 
-#media
+#Медиа
 @bot.message_handler(content_types=['photo'])
 def getPhoto(message):
     markup = types.InlineKeyboardMarkup()
@@ -46,5 +46,5 @@ def callback_message(callback):
         bot.delete_message(callback.message.chat.id, callback.message.message_id - 1)
         bot.delete_message(callback.message.chat.id, callback.message.message_id)
 
-# Запуск бота
+#работа
 bot.polling(none_stop=True)
