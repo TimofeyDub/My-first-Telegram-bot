@@ -78,22 +78,33 @@ def on_click(message):
 
     log_message(message)
 
+    #хелпа и жопа
     if message.text == 'Helpaa':
         bot.send_message(message.chat.id, f'Ну бля, я СаняДжПиТи, хз чем helpaaнуть. Можешь мне отправить фотку и я её оценю. Можешь написать привет или пока. Я разрабатываюсь одним человеком, поэтому мой функционал пока не богат. Жди обновлений, ещё можешь накинуть идей моему создателю: @tmn7t')
         print(message.chat.id, message.from_user.username, "helpaa")
     elif message.text == 'Жопа':
         bot.send_message(message.chat.id, 'Сам(а) ты жопа', reply_markup=KEYBOARDS['ass_confirmation'])
+        
+    #мемчики
     elif message.text == 'Мемчик':
             photo_count = len(os.listdir('./photo'))
             memchik = random.randint(1, photo_count)
             file = open(f'./photo/{memchik}.png', 'rb')
             bot.send_photo(message.chat.id, file, timeout=60)
+
+            if memchik == 8:
+                bot.send_message(message.chat.id, 'Это правда')
+
             file.close()
             print(message.chat.id, message.from_user.username, "meme")
+
+    #привет пока
     elif message.text.lower() == 'привет':
          bot.send_message(message.chat.id, 'Уже здоровались')
     elif message.text.lower() == 'пока':
          bot.send_message(message.chat.id, 'Вот и иди нахуй')
+
+    #погода
     elif message.text == 'Погода':
         bot.send_message(message.chat.id, 'В каком городе нахуй?', reply_markup=KEYBOARDS['weather'])
     #погоды

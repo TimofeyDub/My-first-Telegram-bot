@@ -32,7 +32,7 @@ def pogoda2():
         #текущее время там
         current_time = datetime.utcnow().strftime("%Y-%m-%dT%H:00")
         
-        #Индекс текущего часа
+        #индекс текущего часа
         time_list = data['hourly']['time']
         temp_list = data['hourly']['temperature_2m']
         
