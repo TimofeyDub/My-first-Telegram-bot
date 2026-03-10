@@ -5,45 +5,14 @@ from datetime import datetime
 from telebot import types
 from api import pogoda
 from api import pogoda2
+from keyboardstg import create_keyboards
 
 bot = telebot.TeleBot('8379602830:AAFYS3OLfvC5SPw2qEQesZWyE9fAwIZzGvU')
+#клавиатуры
+KEYBOARDS = {'main': None, 'weather': None, 'ass_confirmation': None}
+create_keyboards(KEYBOARDS)
 
-# Создаем словарь с клавиатурами
-KEYBOARDS = {
-    'main': None,  # заполним позже
-    'weather': None,
-    'ass_confirmation': None
-}
-
-# Функция для создания клавиатур
-def create_keyboards():
-    # Главная клавиатура
-    markup_main = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    btn1 = types.KeyboardButton('Жопа')
-    btn2 = types.KeyboardButton('Helpaa')
-    btn3 = types.KeyboardButton('Мемчик')
-    btn4 = types.KeyboardButton('Погода')
-    markup_main.row(btn1, btn2, btn3)
-    markup_main.row(btn4)
-    KEYBOARDS['main'] = markup_main
-    
-    # Клавиатура для выбора города
-    markup_weather = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    btn6 = types.KeyboardButton('Всеша')
-    btn7 = types.KeyboardButton('Валенсия')
-    markup_weather.row(btn6, btn7)
-    KEYBOARDS['weather'] = markup_weather
-    
-    # Клавиатура для подтверждения "Ты ахуел?"
-    markup_ass = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    btn5 = types.KeyboardButton('Ты ахуел?')
-    markup_ass.row(btn5)
-    KEYBOARDS['ass_confirmation'] = markup_ass
-
-# Вызываем функцию при старте
-create_keyboards()
-
-# Логгер сообщений
+#логгер сообщений
 def log_message(message):
     user = message.from_user
     chat_type = message.chat.type
@@ -127,14 +96,14 @@ def on_click(message):
          bot.send_message(message.chat.id, 'Вот и иди нахуй')
     elif message.text == 'Погода':
         bot.send_message(message.chat.id, 'В каком городе нахуй?', reply_markup=KEYBOARDS['weather'])
-#погоды
+    #погоды
     elif message.text == 'Всеша':
         a = pogoda() 
         bot.send_message(message.chat.id, a, reply_markup=KEYBOARDS['main'])
     elif message.text == 'Валенсия':
         a = pogoda2() 
         bot.send_message(message.chat.id, a, reply_markup=KEYBOARDS['main'])
-#жопа
+    #жопа
     elif message.text == 'Ты ахуел?':
         bot.send_message(message.chat.id, 'Ладно, я ахуел', reply_markup=KEYBOARDS['main'])
 
