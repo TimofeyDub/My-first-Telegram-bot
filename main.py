@@ -3,8 +3,7 @@ import random
 import os
 from datetime import datetime
 from telebot import types
-from api import pogoda
-from api import pogoda2
+from api import pogoda, pogoda2
 from keyboardstg import create_keyboards
 
 bot = telebot.TeleBot('8379602830:AAFYS3OLfvC5SPw2qEQesZWyE9fAwIZzGvU')
