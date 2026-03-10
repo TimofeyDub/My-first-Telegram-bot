@@ -9,7 +9,7 @@ from keyboardstg import create_keyboards
 
 bot = telebot.TeleBot('8379602830:AAFYS3OLfvC5SPw2qEQesZWyE9fAwIZzGvU')
 #клавиатуры
-KEYBOARDS = {'main': None, 'weather': None, 'ass_confirmation': None}
+KEYBOARDS = {}
 create_keyboards(KEYBOARDS)
 
 #логгер сообщений
