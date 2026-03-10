@@ -4,8 +4,44 @@ import os
 from datetime import datetime
 from telebot import types
 from api import pogoda
+from api import pogoda2
 
 bot = telebot.TeleBot('8379602830:AAFYS3OLfvC5SPw2qEQesZWyE9fAwIZzGvU')
+
+# Создаем словарь с клавиатурами
+KEYBOARDS = {
+    'main': None,  # заполним позже
+    'weather': None,
+    'ass_confirmation': None
+}
+
+# Функция для создания клавиатур
+def create_keyboards():
+    # Главная клавиатура
+    markup_main = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    btn1 = types.KeyboardButton('Жопа')
+    btn2 = types.KeyboardButton('Helpaa')
+    btn3 = types.KeyboardButton('Мемчик')
+    btn4 = types.KeyboardButton('Погода')
+    markup_main.row(btn1, btn2, btn3)
+    markup_main.row(btn4)
+    KEYBOARDS['main'] = markup_main
+    
+    # Клавиатура для выбора города
+    markup_weather = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    btn6 = types.KeyboardButton('Всеша')
+    btn7 = types.KeyboardButton('Валенсия')
+    markup_weather.row(btn6, btn7)
+    KEYBOARDS['weather'] = markup_weather
+    
+    # Клавиатура для подтверждения "Ты ахуел?"
+    markup_ass = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    btn5 = types.KeyboardButton('Ты ахуел?')
+    markup_ass.row(btn5)
+    KEYBOARDS['ass_confirmation'] = markup_ass
+
+# Вызываем функцию при старте
+create_keyboards()
 
 # Логгер сообщений
 def log_message(message):
@@ -21,14 +57,7 @@ def log_message(message):
 #обработчик команд
 @bot.message_handler(commands=['start'])
 def start(message):
-    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    btn1 = types.KeyboardButton('Жопа')
-    btn2 = types.KeyboardButton('Helpaa')
-    btn3 = types.KeyboardButton('Мемчик')
-    btn4 = types.KeyboardButton('Погода во Всеше')
-    markup.row(btn1, btn2, btn3)
-    markup.row(btn4)
-    bot.send_message(message.chat.id, f"Привет @{message.from_user.username}! Это я, СаняGPT. Чем я могу помочь?????", reply_markup=markup)
+    bot.send_message(message.chat.id, f"Привет @{message.from_user.username}! Это я, СаняGPT. Чем я могу помочь?????", reply_markup=KEYBOARDS['main'])
     print(message.chat.id, message.from_user.username, "start")
 
 #send message
@@ -81,13 +110,10 @@ def on_click(message):
     log_message(message)
 
     if message.text == 'Helpaa':
-        bot.send_message(message.chat.id, 'Nema helpi')
+        bot.send_message(message.chat.id, f'Ну бля, я СаняДжПиТи, хз чем helpaaнуть. Можешь мне отправить фотку и я её оценю. Можешь написать привет или пока. Я разрабатываюсь одним человеком, поэтому мой функционал пока не богат. Жди обновлений, ещё можешь накинуть идей моему создателю: @tmn7t')
         print(message.chat.id, message.from_user.username, "helpaa")
     elif message.text == 'Жопа':
-        markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-        btn5 = types.KeyboardButton('Ты ахуел?')
-        markup.row(btn5)
-        bot.send_message(message.chat.id, 'Сам(а) ты жопа', reply_markup=markup)
+        bot.send_message(message.chat.id, 'Сам(а) ты жопа', reply_markup=KEYBOARDS['ass_confirmation'])
     elif message.text == 'Мемчик':
             photo_count = len(os.listdir('./photo'))
             memchik = random.randint(1, photo_count)
@@ -99,18 +125,18 @@ def on_click(message):
          bot.send_message(message.chat.id, 'Уже здоровались')
     elif message.text.lower() == 'пока':
          bot.send_message(message.chat.id, 'Вот и иди нахуй')
-    elif message.text == 'Погода во Всеше':
+    elif message.text == 'Погода':
+        bot.send_message(message.chat.id, 'В каком городе нахуй?', reply_markup=KEYBOARDS['weather'])
+#погоды
+    elif message.text == 'Всеша':
         a = pogoda() 
-        bot.send_message(message.chat.id, a)
+        bot.send_message(message.chat.id, a, reply_markup=KEYBOARDS['main'])
+    elif message.text == 'Валенсия':
+        a = pogoda2() 
+        bot.send_message(message.chat.id, a, reply_markup=KEYBOARDS['main'])
+#жопа
     elif message.text == 'Ты ахуел?':
-        markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-        btn1 = types.KeyboardButton('Жопа')
-        btn2 = types.KeyboardButton('Helpaa')
-        btn3 = types.KeyboardButton('Мемчик')
-        btn4 = types.KeyboardButton('Погода во Всеше')
-        markup.row(btn1, btn2, btn3)
-        markup.row(btn4)
-        bot.send_message(message.chat.id, 'Ладно, я ахуел', reply_markup=markup)
+        bot.send_message(message.chat.id, 'Ладно, я ахуел', reply_markup=KEYBOARDS['main'])
 
 #callback
 @bot.callback_query_handler(func=lambda callback: True)
