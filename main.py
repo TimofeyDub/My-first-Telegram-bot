@@ -29,6 +29,25 @@ def start(message):
     bot.send_message(message.chat.id, f"Привет @{message.from_user.username}! Это я, СаняGPT. Чем я могу помочь?????", reply_markup=KEYBOARDS['main'])
     print(message.chat.id, message.from_user.username, "start")
 
+#обработчик команд
+@bot.message_handler(commands=['pisapopa'])
+def start(message):
+    parts = message.text.split()
+    if len(parts) < 2:
+            bot.reply_to(message, "Не хватает аргументов.")
+            return
+    #текст сообщения
+    if len(parts) >= 3:
+        text = ' '.join(parts[2:])
+    else:
+        text = "Пустое сообщение"
+    try:
+            bot.send_message(message.chat, text)
+            bot.reply_to(message, f"Отправлено всем")
+    except Exception as u:
+            bot.reply_to(message, f"Не могу отправить{u}")
+
+
 #send message
 @bot.message_handler(commands=['send'])
 def send_to_user(message):
@@ -84,7 +103,7 @@ def on_click(message):
         print(message.chat.id, message.from_user.username, "helpaa")
     elif message.text == 'Жопа':
         bot.send_message(message.chat.id, 'Сам(а) ты жопа', reply_markup=KEYBOARDS['ass_confirmation'])
-        
+
     #мемчики
     elif message.text == 'Мемчик':
             photo_count = len(os.listdir('./photo'))
