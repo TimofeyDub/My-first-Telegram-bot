@@ -16,7 +16,9 @@ def create_keyboards(KEYBOARDS):
     markup_weather = types.ReplyKeyboardMarkup(resize_keyboard=True)
     btn6 = types.KeyboardButton('Всеша')
     btn7 = types.KeyboardButton('Валенсия')
+    btn8 = types.KeyboardButton('Ташкент')
     markup_weather.row(btn6, btn7)
+    markup_weather.row(btn8)
     KEYBOARDS['weather'] = markup_weather
     
     #ты ахуел?

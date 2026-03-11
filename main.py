@@ -113,6 +113,8 @@ def on_click(message):
     elif message.text == 'Валенсия':
         a = pogoda2() 
         bot.send_message(message.chat.id, a, reply_markup=KEYBOARDS['main'])
+    elif message.text == 'Ташкент':
+        bot.send_message(message.chat.id, 'Погода в Ташкенте: Всегда ясно', reply_markup=KEYBOARDS['main'])
     #жопа
     elif message.text == 'Ты ахуел?':
         bot.send_message(message.chat.id, 'Ладно, я ахуел', reply_markup=KEYBOARDS['main'])
