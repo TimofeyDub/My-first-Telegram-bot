@@ -61,7 +61,7 @@ def send_to_user(message):
             
     except Exception as e:
         bot.reply_to(message, f"Ошибка: {e}")
-#медиа
+#обработчик медиа
 @bot.message_handler(content_types=['photo'])
 def getPhoto(message):
     markup = types.InlineKeyboardMarkup()
