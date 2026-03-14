@@ -3,7 +3,7 @@ import random
 import os
 from datetime import datetime
 from telebot import types
-from api import pogoda, pogoda2, pogoda3
+from api import pogoda, pogoda2, pogoda3, pogoda4
 from keyboardstg import create_keyboards
 
 bot = telebot.TeleBot('8379602830:AAFYS3OLfvC5SPw2qEQesZWyE9fAwIZzGvU')
@@ -107,14 +107,17 @@ def on_click(message):
     elif message.text == 'Погода':
         bot.send_message(message.chat.id, 'В каком городе нахуй?', reply_markup=KEYBOARDS['weather'])
     #погоды
-    elif message.text == 'Всеша':
+    elif message.text == 'Всеша🇷🇺':
         a = pogoda() 
         bot.send_message(message.chat.id, a, reply_markup=KEYBOARDS['main'])
-    elif message.text == 'Валенсия':
+    elif message.text == 'Валенсия🇪🇸':
         a = pogoda2() 
         bot.send_message(message.chat.id, a, reply_markup=KEYBOARDS['main'])
-    elif message.text == 'Ташкент':
+    elif message.text == 'Ташкент🇺🇿':
         a = pogoda3()
+        bot.send_message(message.chat.id, a, reply_markup=KEYBOARDS['main'])
+    elif message.text == 'Washington, DC🇺🇸':
+        a = pogoda4()
         bot.send_message(message.chat.id, a, reply_markup=KEYBOARDS['main'])
     #жопа
     elif message.text == 'Ты ахуел?':
